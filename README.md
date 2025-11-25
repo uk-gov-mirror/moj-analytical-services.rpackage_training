@@ -101,7 +101,7 @@ Possibly the hardest part of creating a package is choosing a name for it. This 
 
 - be short 
 - be unique (for Google searches)
-- be made of ASCII letters, numbers and "." only (it must start with a letter)
+- be made of ASCII letters and numbers only (it must start with a letter)
 - not use a mixture of upper and lower case letters (this makes the name hard to remember)
 - if possible be clear about what the package does i.e. reflect the scope
 - memorable (both {pstime} and {pssf} are terrible names on this account!)
