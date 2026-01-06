@@ -108,6 +108,8 @@ Possibly the hardest part of creating a package is choosing a name for it. This 
 
 You can read more in the [R Packages section Name your package](https://r-pkgs.org/workflow101.html#name-your-package)
 
+Each package should live in its own GitHub repo.
+
 
 ##### Exercises
 * **2.1** Decide what name to call your package (something like your initials or name combined with "demo",
