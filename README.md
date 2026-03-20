@@ -652,21 +652,35 @@ is_monday <- function(date) {
 
 ### A1 Continuous integration
 
-Continuous integration is about automating software workflows. An automated workflow can be 
-setup so that when you or someone else pushes changes to github.com, tests are run to 
-ascertain whether there are any problems. These checks should include the unit tests you've 
-developed and also the R CMD tests (over 50 individual checks for common problems) carried 
-out when you run `devtools::check()`.
+Continuous integration is the automation of routine software workflows. In the context of R package
+development it can be used to automate tasks like `devtools::check()` in response to triggers such as
+pushes to a specific branch or pull requests. This is covered in the 
+[R packages book (opens in a new tab)](https://r-pkgs.org/software-development-practices.html#sec-sw-dev-practices-ci) 
+but bear in mind that if your package is in an "internal" or "private" repo you might run into authenications issues if
+you need to install the package as part of the workflow.
 
-Before setting up this automation, you should have fixed any problems identified by running 
-the R CMD tests - see [Section 7 - Checking your package](#section-7---checking-your-package).
+* **A1.1** Create a folder called `.github` and within that folder create another one calles `workflows`
+* **A1.2** Add `^\.github$` as a pattern to your package's `.Rbuildignore` file
+* **A1.3** Copy the code chunk below and save it in a text file called `.github/workflows/protect-main.yaml`
 
-To setup continuous integration using GitHub Actions: 
+```YAML
+name: Protect-main
 
-```R
-usethis::use_github_actions()
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  PR-from-dev-only:
+    runs-on: ubuntu-slim
+    steps:
+      - run: |
+          if [[ ${GITHUB_HEAD_REF} != dev && ${GITHUB_BASE_REF} == main ]] ; then
+            echo "Error: PR to 'main' must come from 'dev' branch!"
+            exit 1
+          fi
 ```
-
-This automatically puts a status badge in your README. 
-
-You can read further about automating checking in [R Packages Automated Checking chapter](https://r-pkgs.org/r-cmd-check.html).
