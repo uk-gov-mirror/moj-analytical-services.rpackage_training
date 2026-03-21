@@ -53,7 +53,6 @@ Recordings of these sessions can be viewed via links provided in the [Analytical
 * [Section 16 - Maintenance cycle](#section-16---maintenance-cycle)
 * [Annex](#annex)
     + [A1 Continuous integration](#a1-continuous-integration)
-    + [A2 Installing packages on the Analytical Platform prior to R 4.4.0](#a2-installing-packages-on-the-analytical-platform-prior-to-r-440)
 
 
 ## Section 1 - Introduction
