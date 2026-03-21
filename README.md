@@ -652,21 +652,51 @@ is_monday <- function(date) {
 
 ### A1 Continuous integration
 
-Continuous integration is about automating software workflows. An automated workflow can be 
-setup so that when you or someone else pushes changes to github.com, tests are run to 
-ascertain whether there are any problems. These checks should include the unit tests you've 
-developed and also the R CMD tests (over 50 individual checks for common problems) carried 
-out when you run `devtools::check()`.
+Continuous integration is the automation of routine software workflows. In the context of R package
+development it can be used to automate tasks like `devtools::check()` in response to triggers such as
+pushes to a specific branch or pull requests. This is covered in the 
+[R packages book (opens in a new tab)](https://r-pkgs.org/software-development-practices.html#sec-sw-dev-practices-ci) 
+which demonstrates how to use GitHub Acitons for this but bear in mind that if your package or its dependencies are in 
+"internal" or "private" repo you might run into authenication issues with some actions. Please also bear in mind that 
+GitHub actions are not free on internal and private repos.
 
-Before setting up this automation, you should have fixed any problems identified by running 
-the R CMD tests - see [Section 7 - Checking your package](#section-7---checking-your-package).
+When you are maintaining a package you probably want a permenant `dev` branch upon which to collect changes before 
+these are merged to `main` as part of a realease. When you open a pull request on GitHub, the target branch is the 
+default branch (probably `main`) unless you change it. It can be easy to foget and merge from a feature or bug-fix 
+branch straight to `main` instead of via `dev`. The following exercise will set up a GitHub action to help prevent 
+this. The action checks the to see if the base reference is `main` and if is and the hear reference is not
+`dev` the check will fail. This can then be combined with branch proteciton rules to prevent accidental merges.
 
-To setup continuous integration using GitHub Actions: 
+* **A1.1** Switch to `dev` and create a new branch called `protect-main`
+* **A1.2** In RStudio create a folder called `.github` and within that folder create another one calles `workflows`
+* **A1.3** Add `^\.github$` as a pattern to your package's `.Rbuildignore` file
+* **A1.4** Copy the code chunk below and save it in a text file called `.github/workflows/protect-main.yaml`
 
-```R
-usethis::use_github_actions()
+```YAML
+name: Protect-main
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+jobs:
+  PR-from-dev-only:
+    runs-on: ubuntu-slim
+    steps:
+      - run: |
+          if [[ ${GITHUB_HEAD_REF} != dev && ${GITHUB_BASE_REF} == main ]] ; then
+            echo "Error: PR to 'main' must come from 'dev' branch!"
+            exit 1
+          fi
 ```
+* **A1.5** Commit the changes and push to GitHub
+* **A1.6** Open a pull request from `protect-main` to `dev`. This will trigger the action for the first time.
+* **A1.7** [Set up protecitons for you `main` branch requiring a pull request before merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule#creating-a-branch-protection-rule).
+    * Follow step 7 to requre the status check in the `protect-main.yaml` file to pass before a branch can be merged. The name of the Status check is `PR-from-dev-only`
+    * Make sure you check the "Do not allow bypassing the above settings" option (step 14 in the guide)
 
-This automatically puts a status badge in your README. 
-
-You can read further about automating checking in [R Packages Automated Checking chapter](https://r-pkgs.org/r-cmd-check.html).
+You will now not be able to merge pull request to `main` from any branch other than `dev`.
