@@ -113,7 +113,7 @@ Each package should live in its own GitHub repo.
 ##### Exercises
 * **2.1** Decide what name to call your package (something like your initials or name combined with "demo",
 "eg", or "toy" might be appropriate for this training). Make sure you respect the constraints on permitted characters!
-* **2.2** [Create a new github repository (Analytical Platform User Guidance)](https://user-guidance.analytical-platform.service.justice.gov.uk/github/create-project.html#create-a-new-project-in-github), giving it your chosen name and "internal" visibility. Add a .gitignore file (using the "R" template) but not a license or README at this stage.
+* **2.2** [Create a new github repository (Analytical Platform User Guidance)](https://user-guidance.analytical-platform.service.justice.gov.uk/github/create-project.html#create-a-new-project-in-github), giving it your chosen name and "internal" visibility. Add a .gitignore file (using the "R" template) but not a license or README at this stage and don't use a template.
 * **2.3** [Clone the repo (Analytical Platform User Guidance)](https://user-guidance.analytical-platform.service.justice.gov.uk/github/rstudio-git.html#step-1-navigate-to-your-platform-r-studio-and-make-a-copy-of-the-github-project-in-your-r-studio) as an RStudio project.
 
 
@@ -160,7 +160,7 @@ format and aid development by automating common tasks. The two we will be using 
 [{devtools}](https://devtools.r-lib.org/) and [{usethis}](https://usethis.r-lib.org/).
 
 ##### Exercises 
-* **4.2** Using `install.packages()`, install the {devtools} and {usethis} packages. If you are using R < 4.4.0 on the AP please review [appendix A2](#a2-installing-packages-on-the-analytical-platform-prior-to-r-440) first.
+* **4.2** Using `install.packages()`, install the {devtools} and {usethis} packages.
 
 The following {usethis} function will structure your current working directory as an R package 
 (you will need to overwrite what is already there when prompted):
