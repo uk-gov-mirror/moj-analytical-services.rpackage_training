@@ -656,8 +656,9 @@ development it can be used to automate tasks like `devtools::check()` in respons
 pushes to a specific branch or pull requests. This is covered in the 
 [R packages book (opens in a new tab)](https://r-pkgs.org/software-development-practices.html#sec-sw-dev-practices-ci) 
 which demonstrates how to use GitHub Acitons for this but bear in mind that if your package or its dependencies are in 
-"internal" or "private" repo you might run into authenication issues with some actions. Please also bear in mind that 
-GitHub actions are not free on internal and private repos.
+"internal" or "private" repo you might run into authenication issues with some actions. **Please note that as of April
+2026 external GitHub actions used on MoJ repos must use SHA pinning and be on the approved list.** Please also bear in 
+mind that GitHub actions are not free on internal and private repos.
 
 When you are maintaining a package you probably want a permenant `dev` branch upon which to collect changes before 
 these are merged to `main` as part of a realease. When you open a pull request on GitHub, the target branch is the 
