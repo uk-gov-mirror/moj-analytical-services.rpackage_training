@@ -697,7 +697,7 @@ jobs:
 ```
 * **A1.5** Commit the changes and push to GitHub
 * **A1.6** Open a pull request from `protect-main` to `dev`. This will trigger the action for the first time.
-* **A1.7** [Set up protecitons for your `main` branch requiring a pull request before merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule#creating-a-branch-protection-rule).
+* **A1.7** [Set up protections for your `main` branch requiring a pull request before merging](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule#creating-a-branch-protection-rule).
     * Follow step 7 to requre the status check in the `protect-main.yaml` file to pass before a branch can be merged. The name of the Status check is `PR-from-dev-only`
     * Make sure you check the "Do not allow bypassing the above settings" option (step 14 in the guide)
 
